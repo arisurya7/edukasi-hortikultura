@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\PlantController;
+use App\Http\Controllers\API\PlantTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::middleware('staticKey')->group(function() {
+    Route::get('plant-type', [PlantTypeController::class, 'get']);
+    Route::get('plants', [PlantController::class, 'get']);
+    Route::get('plant/{id}', [PlantController::class, 'get']);
+    Route::post('plant', [PlantController::class, 'store']);
 });
