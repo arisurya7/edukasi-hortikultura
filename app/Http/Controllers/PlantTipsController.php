@@ -32,7 +32,7 @@ class PlantTipsController extends Controller
             DB::beginTransaction();
 
             $filenameImg = time().'.'.$request->img->extension();
-            $request->file('img')->move(public_path('media/public'), $filenameImg);
+            $request->file('img')->move(public_path('media/image'), $filenameImg);
 
             PlantTips::create([
                 'name' => $request->name,
