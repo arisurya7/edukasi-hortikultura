@@ -12,7 +12,7 @@ class PlantTips extends Model
     protected $table = 'm_plant_tips';
     protected $fillable = [
         'name',
-        'image',
+        'img',
         'desc',
     ];
     public $timestamps = false;
