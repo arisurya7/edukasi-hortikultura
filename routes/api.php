@@ -5,6 +5,7 @@ use App\Http\Controllers\API\PlantDiseaseController;
 use App\Http\Controllers\API\PlantPestController;
 use App\Http\Controllers\API\PlantTypeController;
 use App\Http\Controllers\API\TemperatureController;
+use App\Http\Controllers\PlantTipsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,4 +40,9 @@ Route::middleware('staticKey')->group(function() {
     Route::get('plant-pests', [PlantPestController::class, 'get']);
     Route::get('plant-pest/{id}', [PlantPestController::class, 'get']);
     Route::post('plant-pest', [PlantPestController::class, 'store']);
+    
+    //plant tips
+    Route::get('plant-tipss', [PlantTipsController::class, 'get']);
+    Route::get('plant-tips/{id}', [PlantTipsController::class, 'get']);
+    Route::post('plant-tips', [PlantTipsController::class, 'store']);
 });
