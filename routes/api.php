@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\PlantController;
+use App\Http\Controllers\API\PlantDiseaseController;
 use App\Http\Controllers\API\PlantTypeController;
 use App\Http\Controllers\API\TemperatureController;
 use Illuminate\Http\Request;
@@ -27,4 +28,9 @@ Route::middleware('staticKey')->group(function() {
     Route::get('plant/{id}', [PlantController::class, 'get']);
     Route::post('plant', [PlantController::class, 'store']);
     Route::get('temperatures', [TemperatureController::class, 'get']);
+    
+    //plant disease
+    Route::get('plant-diseases', [PlantDiseaseController::class, 'get']);
+    Route::get('plant-desease/{id}', [PlantDiseaseController::class, 'get']);
+    Route::post('plant-desease', [PlantDiseaseController::class, 'store']);
 });
