@@ -33,8 +33,8 @@ Route::middleware('staticKey')->group(function() {
     
     //plant disease
     Route::get('plant-diseases', [PlantDiseaseController::class, 'get']);
-    Route::get('plant-desease/{id}', [PlantDiseaseController::class, 'get']);
-    Route::post('plant-desease', [PlantDiseaseController::class, 'store']);
+    Route::get('plant-disease/{id}', [PlantDiseaseController::class, 'get']);
+    Route::post('plant-disease', [PlantDiseaseController::class, 'store']);
 
     //plant pest
     Route::get('plant-pests', [PlantPestController::class, 'get']);
