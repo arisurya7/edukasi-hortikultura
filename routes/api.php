@@ -6,6 +6,9 @@ use App\Http\Controllers\API\PlantPestController;
 use App\Http\Controllers\API\PlantTypeController;
 use App\Http\Controllers\API\TemperatureController;
 use App\Http\Controllers\PlantTipsController;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuizTypeController;
+use App\Models\QuizType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,4 +48,14 @@ Route::middleware('staticKey')->group(function() {
     Route::get('plant-tipss', [PlantTipsController::class, 'get']);
     Route::get('plant-tips/{id}', [PlantTipsController::class, 'get']);
     Route::post('plant-tips', [PlantTipsController::class, 'store']);
+
+    //quiz type
+    Route::get('quiz-types', [QuizTypeController::class, 'get']);
+    Route::get('quiz-type/{id}', [QuizTypeController::class, 'get']);
+    Route::post('quiz-type', [QuizTypeController::class, 'store']);
+
+    //quiz
+    Route::get('quizzes', [QuizController::class, 'get']);
+    Route::post('quiz', [QuizController::class, 'store']);
+    Route::post('quiz-grade', [QuizController::class, 'grade']);
 });
