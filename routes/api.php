@@ -5,6 +5,7 @@ use App\Http\Controllers\API\PlantDiseaseController;
 use App\Http\Controllers\API\PlantPestController;
 use App\Http\Controllers\API\PlantTypeController;
 use App\Http\Controllers\API\TemperatureController;
+use App\Http\Controllers\API\VideoController;
 use App\Http\Controllers\PlantTipsController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizTypeController;
@@ -58,4 +59,10 @@ Route::middleware('staticKey')->group(function() {
     Route::get('quizzes', [QuizController::class, 'get']);
     Route::post('quiz', [QuizController::class, 'store']);
     Route::post('quiz-grade', [QuizController::class, 'grade']);
+    
+    //video
+    Route::get('videos', [VideoController::class, 'get']);
+    Route::get('video/{id}', [VideoController::class, 'get']);
+    Route::post('video', [VideoController::class, 'store']);
+
 });

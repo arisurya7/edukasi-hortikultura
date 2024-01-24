@@ -12,7 +12,8 @@ class Videos extends Model
     protected $table = 'm_videos';
     protected $fillable = [
         'title',
-        'link'
+        'link',
+        'video_id'
     ];
     public $timestamps = false;
 }
