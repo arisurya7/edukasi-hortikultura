@@ -16,7 +16,7 @@ class PlantController extends Controller
             if(isset($id)) {
                 $plants = Plant::findOrFail($id);
             } else {
-                $plants = Plant::get();
+                $plants = isset($request->name) ? Plant::where('name', 'like', '%'.$request->name.'%')->get() : Plant::get();
             }
             return response()->json(['status' => true, 'message' => 'data retrived', 'data' => $plants], 200);
         } catch (\Exception $e) {
@@ -34,7 +34,7 @@ class PlantController extends Controller
             Plant::create([
                 'plant_type_id' => $request->plant_type_id,
                 'name' => $request->name,
-                'img' => $filenameImg,
+                'img' => asset("media/image/".$filenameImg.""),
                 'desc' => $request->desc,
                 'bellow_temperature' => $request->bellow_temperature,
                 'top_temperature' => $request->top_temperature,

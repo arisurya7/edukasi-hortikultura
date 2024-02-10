@@ -12,7 +12,7 @@ class PlantPest extends Model
     protected $table = 'm_plant_pests';
     protected $fillable = [
         'name',
-        'image',
+        'img',
         'desc',
     ];
     public $timestamps = false;
