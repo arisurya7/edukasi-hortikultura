@@ -30,6 +30,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('staticKey')->group(function() {
     Route::get('plant-type', [PlantTypeController::class, 'get']);
+    Route::post('plant-type', [PlantTypeController::class, 'store']);
+
     Route::get('plants', [PlantController::class, 'get']);
     Route::get('plant/{id}', [PlantController::class, 'get']);
     Route::post('plant', [PlantController::class, 'store']);
