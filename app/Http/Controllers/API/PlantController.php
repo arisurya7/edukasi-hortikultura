@@ -16,7 +16,20 @@ class PlantController extends Controller
             if(isset($id)) {
                 $plants = Plant::findOrFail($id);
             } else {
-                $plants = isset($request->name) ? Plant::where('name', 'like', '%'.$request->name.'%')->get() : Plant::get();
+                
+                if(isset($request->name)) {
+                    $data = Plant::where('name', 'like', '%'.$request->name.'%');
+                }
+
+                if(isset($request->plant_type_id)) {
+                    if (isset($data)) {
+                        $data = $data->where('plant_type_id', $request->plant_type_id);
+                    }else{
+                        $data = Plant::where('plant_type_id', $request->plant_type_id);
+                    }
+                }
+                
+                $plants = $data->get();
             }
             return response()->json(['status' => true, 'message' => 'data retrived', 'data' => $plants], 200);
         } catch (\Exception $e) {
