@@ -5,6 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PlantRequest;
 use App\Models\Plant;
+use App\Models\PlantDisease;
+use App\Models\PlantPest;
+use App\Models\PlantTips;
+use App\Models\Videos;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -36,6 +40,23 @@ class PlantController extends Controller
             Log::error('Error  get plant :' .$e->getMessage());
             return response()->json(['status' => false, 'message' => $e->getMessage()], 400);
         } 
+    }
+    
+    public function count(){
+        try{
+
+            $data = [
+                "plant" => Plant::count(),
+                "plant_disease" => PlantDisease::count(),
+                "plant_pest" => PlantPest::count(),
+                "plant_tips" => PlantTips::count(),
+                "plant_video" => Videos::count(),
+            ];
+            
+            return response()->json(['status' => false, "message" => "data retrived", "data" => $data]);
+        }catch(Exception $e){
+            return response()->json(['status' =>  false, "message" => $e->getMessage()], 400);
+        }
     }
 
     public function store(PlantRequest $request){
