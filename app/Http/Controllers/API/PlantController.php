@@ -41,7 +41,7 @@ class PlantController extends Controller
             return response()->json(['status' => false, 'message' => $e->getMessage()], 400);
         } 
     }
-    
+
     public function count(){
         try{
 
@@ -53,7 +53,7 @@ class PlantController extends Controller
                 "plant_video" => Videos::count(),
             ];
             
-            return response()->json(['status' => false, "message" => "data retrived", "data" => $data]);
+            return response()->json(['status' => true, "message" => "data retrived", "data" => $data], 200);
         }catch(Exception $e){
             return response()->json(['status' =>  false, "message" => $e->getMessage()], 400);
         }
