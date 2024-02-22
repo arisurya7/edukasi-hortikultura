@@ -20,16 +20,16 @@ class PlantController extends Controller
             if(isset($id)) {
                 $plants = Plant::findOrFail($id);
             } else {
-                
+                $data = Plant::select('*');
                 if(isset($request->name)) {
-                    $data = Plant::where('name', 'like', '%'.$request->name.'%');
+                    $data = $data->where('name', 'like', '%'.$request->name.'%');
                 }
 
                 if(isset($request->plant_type_id)) {
                     if (isset($data)) {
                         $data = $data->where('plant_type_id', $request->plant_type_id);
                     }else{
-                        $data = Plant::where('plant_type_id', $request->plant_type_id);
+                        $data = $data->where('plant_type_id', $request->plant_type_id);
                     }
                 }
                 
