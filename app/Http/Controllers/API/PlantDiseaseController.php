@@ -18,7 +18,7 @@ class PlantDiseaseController extends Controller
                 $plantDisease = PlantDisease::findOrFail($id);
             } else {
                 $plantDisease = PlantDisease::select("*");
-                if(isset($plantDisease)) {
+                if(isset($request->plant_id)) {
                     $plantDisease = $plantDisease->where("plant_id", $request->plant_id);
                 }
                 $plantDisease = $plantDisease->get();
