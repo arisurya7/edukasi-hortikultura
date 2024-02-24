@@ -17,7 +17,11 @@ class PlantDiseaseController extends Controller
             if(isset($id)) {
                 $plantDisease = PlantDisease::findOrFail($id);
             } else {
-                $plantDisease = PlantDisease::get();
+                $plantDisease = PlantDisease::select("*");
+                if(isset($plantDisease)) {
+                    $plantDisease = $plantDisease->where("plant_id", $request->plant_id);
+                }
+                $plantDisease = $plantDisease->get();
             }
             return response()->json(['status' => true, 'message' => 'data retrived', 'data' => $plantDisease], 200);
         } catch (Exception $e) {

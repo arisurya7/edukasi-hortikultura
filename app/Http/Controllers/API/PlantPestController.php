@@ -17,7 +17,11 @@ class PlantPestController extends Controller
             if(isset($id)) {
                 $plantPest = PlantPest::findOrFail($id);
             } else {
-                $plantPest = PlantPest::get();
+                $plantPest = PlantPest::select('*');
+                if(isset($request->plant_id)){
+                    $plantPest = $plantPest->where('plant_id', $request->plant_id);
+                }
+                $plantPest = $plantPest->get();
             }
             return response()->json(['status' => true, 'message' => 'data retrived', 'data' => $plantPest], 200);
         } catch (Exception $e) {
