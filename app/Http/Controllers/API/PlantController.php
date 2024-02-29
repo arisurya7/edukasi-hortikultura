@@ -59,12 +59,16 @@ class PlantController extends Controller
         }
     }
 
-    public function store(PlantRequest $request){
+    public function store(Request $request){
         try {    
 
             $filenameImg = time().'.'.$request->img->extension();
-            $request->file('img')->move(public_path('media/image'), $filenameImg);
-           
+            if($request->file('img') == null && $request->img != null){
+                $request->img->move(public_path('media/image'), $filenameImg);
+            } else {
+                $request->file('img')->move(public_path('media/image'), $filenameImg);
+            }
+            
             Plant::create([
                 'plant_type_id' => $request->plant_type_id,
                 'name' => $request->name,

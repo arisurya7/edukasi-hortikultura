@@ -14,6 +14,7 @@ class PlantDisease extends Model
         'name',
         'img',
         'desc',
+        'plant_id'
     ];
     public $timestamps = false;
 }
