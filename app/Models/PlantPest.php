@@ -14,6 +14,7 @@ class PlantPest extends Model
         'name',
         'img',
         'desc',
+        'plant_id'
     ];
     public $timestamps = false;
 }

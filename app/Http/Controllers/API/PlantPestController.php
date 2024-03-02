@@ -17,7 +17,11 @@ class PlantPestController extends Controller
             if(isset($id)) {
                 $plantPest = PlantPest::findOrFail($id);
             } else {
-                $plantPest = PlantPest::get();
+                $plantPest = PlantPest::select('*');
+                if(isset($request->plant_id)){
+                    $plantPest = $plantPest->where('plant_id', $request->plant_id);
+                }
+                $plantPest = $plantPest->get();
             }
             return response()->json(['status' => true, 'message' => 'data retrived', 'data' => $plantPest], 200);
         } catch (Exception $e) {
@@ -26,18 +30,22 @@ class PlantPestController extends Controller
         }
     }
 
-    public function store(PlantPestRequest  $request) {
+    public function store(Request  $request) {
         try {
 
             DB::beginTransaction();
-
             $filenameImg = time().'.'.$request->img->extension();
-            $request->file('img')->move(public_path('media/image'), $filenameImg);
+            if ($request->file('img') == null && isset($request->img)) {
+                $request->img->move(public_path('media/image'), $filenameImg);
+            } else {
+                $request->file('img')->move(public_path('media/image'), $filenameImg);
+            }
 
             PlantPest::create([
                 'name' => $request->name,
                 'img' => asset("media/image/".$filenameImg.""),
-                'desc' => $request->desc
+                'desc' => $request->desc,
+                'plant_id' => $request->plant_id,
             ]);
             
             DB::commit();

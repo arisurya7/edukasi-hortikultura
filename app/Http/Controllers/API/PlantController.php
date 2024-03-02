@@ -20,16 +20,16 @@ class PlantController extends Controller
             if(isset($id)) {
                 $plants = Plant::findOrFail($id);
             } else {
-                
+                $data = Plant::select('*');
                 if(isset($request->name)) {
-                    $data = Plant::where('name', 'like', '%'.$request->name.'%');
+                    $data = $data->where('name', 'like', '%'.$request->name.'%');
                 }
 
                 if(isset($request->plant_type_id)) {
                     if (isset($data)) {
                         $data = $data->where('plant_type_id', $request->plant_type_id);
                     }else{
-                        $data = Plant::where('plant_type_id', $request->plant_type_id);
+                        $data = $data->where('plant_type_id', $request->plant_type_id);
                     }
                 }
                 
@@ -41,7 +41,7 @@ class PlantController extends Controller
             return response()->json(['status' => false, 'message' => $e->getMessage()], 400);
         } 
     }
-    
+
     public function count(){
         try{
 
@@ -53,18 +53,22 @@ class PlantController extends Controller
                 "plant_video" => Videos::count(),
             ];
             
-            return response()->json(['status' => false, "message" => "data retrived", "data" => $data]);
+            return response()->json(['status' => true, "message" => "data retrived", "data" => $data], 200);
         }catch(Exception $e){
             return response()->json(['status' =>  false, "message" => $e->getMessage()], 400);
         }
     }
 
-    public function store(PlantRequest $request){
+    public function store(Request $request){
         try {    
 
             $filenameImg = time().'.'.$request->img->extension();
-            $request->file('img')->move(public_path('media/image'), $filenameImg);
-           
+            if($request->file('img') == null && $request->img != null){
+                $request->img->move(public_path('media/image'), $filenameImg);
+            } else {
+                $request->file('img')->move(public_path('media/image'), $filenameImg);
+            }
+            
             Plant::create([
                 'plant_type_id' => $request->plant_type_id,
                 'name' => $request->name,
