@@ -12,12 +12,17 @@ use Illuminate\Support\Facades\Log;
 
 class QuizTypeController extends Controller
 {
+
+    /**
+     * Fungsi untuk menampilkan data quiz type
+     */
     public function get($id = null, Request $request) {
         try {
-
+            //jika terdapat id, tampilkan spesifik data quiz type
             if(isset($id)) {
                 $quizType = QuizType::findOrFail($id);
             } else {
+                //select id, name untuk semua data quiz type
                 $quizType = QuizType::select('id', 'name')->get();
             }
 

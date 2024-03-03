@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Log;
 
 class TemperatureController extends Controller
 {
+    /**
+     * fungsi untuk menampilkan data temperature
+     * yang dikelompokkan berdasarkan bellow_temperature dan top_temperature
+     * 
+     */
     public function get(Request $request){
         try {
             $data = Plant::select(

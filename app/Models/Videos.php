@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Videos extends Model
 {
     use HasFactory;
-    
+    //nama tabel di database
     protected $table = 'm_videos';
+    //kolom yang dapat diisi nilainya
     protected $fillable = [
         'title',
         'link',
