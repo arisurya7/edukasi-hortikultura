@@ -76,7 +76,7 @@
             ]
         });
 
-        function deletePlantTips(id_data) {
+        function deleteQuizType(id_data) {
             Swal.fire({
                 title: 'Anda yakin hapus tips tanaman?',
                 text: "Data tanaman tidak dapat dilihat lagi!",
@@ -89,7 +89,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: "DELETE",
-                        url: '/admin/plant-tips/' + id_data,
+                        url: '/admin/quiz-type/' + id_data,
                         data: {
                             id: id_data,
                             _token: '{{ csrf_token() }}'

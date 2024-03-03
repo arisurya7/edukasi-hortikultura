@@ -13,11 +13,16 @@ use Illuminate\Support\Facades\Log;
 
 class PlantTipsController extends Controller
 {
+    /**
+     * fungsi untuk mendapatkan sepesifik data plant tips dan semua data plant tips
+     */
     public function get($id = null, Request  $request) {
         try {
+            //jika data id nya ada, cari spesifik data plant tips
             if(isset($id)) {
                 $plantTips = PlantTips::findOrFail($id);
             } else {
+                //ambil semua data plant tips
                 $plantTips = PlantTips::get();
             }
             return response()->json(['status' => true, 'message' => 'data retrived', 'data' => $plantTips], 200);
@@ -27,6 +32,9 @@ class PlantTipsController extends Controller
         }
     }
 
+    /**
+     * fungsi untuk menyimpan data plant tips
+     */
     public function store(Request  $request) {
         try {
 

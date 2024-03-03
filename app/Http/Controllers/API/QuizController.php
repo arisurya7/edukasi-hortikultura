@@ -12,14 +12,21 @@ use Illuminate\Support\Facades\Log;
 
 class QuizController extends Controller
 {
+    /**
+     * Fungsi untuk menampilkan daftar penyataan kuis
+     */
     public function get($id = null, Request $request) {
         try {
+            
+            //jika nilai parameter id nya ada, maka cari quiz spesifik berdasarkan id nya
             if(isset($id)) {
                 $quiz = Quiz::findOrFail($id);
             } else {
+                //jika parameter request quiz_type_id nya ada, sekect id, question, answer berdasarkan tipe quiz nya
                 if (isset($request->quiz_type_id)) {
                     $quiz = Quiz::select('id', 'question', 'answer')->where('quiz_type_id', $request->quiz_type_id)->get();
                 } else {
+                    //select id, question, answer untuk semua data quiz
                     $quiz = Quiz::select('id', 'question', 'answer')->get();
                 }
             }
@@ -30,6 +37,9 @@ class QuizController extends Controller
         }
     }
 
+    /**
+     * Fungsi untuk menyimpan data quiz 
+     */
     public function store(QuizRequest $request) {
         try {
             DB::beginTransaction();

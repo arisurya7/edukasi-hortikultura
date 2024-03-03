@@ -9,7 +9,9 @@ class PlantPest extends Model
 {
     use HasFactory;
 
+    //nama tabel di database
     protected $table = 'm_plant_pests';
+    //kolom yang dapat diisi nilainya 
     protected $fillable = [
         'name',
         'img',

@@ -12,11 +12,17 @@ use Illuminate\Support\Facades\Log;
 
 class VideoController extends Controller
 {
+    /**
+     * Fungsi untuk mendapatkan data video
+     * 
+     */
     public function get($id = null, Request $request){
         try {
+            //jika terdapat spesifik id, ambil spesifik data videonya berdasarkan id nya
             if(isset($id)) {
                 $video = Videos::findOrFail($id);
             } else {
+                //select id, title, link, video id dari untuk semua data video
                 $video = Videos::select('id', 'title', 'link', 'video_id')->get();
             }
             return response()->json(['status'=> true, 'message' => 'data retrived', 'data' => $video], 200);     
@@ -26,15 +32,21 @@ class VideoController extends Controller
         }
     }
 
+    /**
+     * Fungsi untuk mengimpat data video
+     */
     public function store(VideoRequest $request) {
         try {
             DB::beginTransaction();
 
+            //ambil id video dari link youtube
             $videoId = $this->getYouTubeVideoId($request->link);
+            //jika formatnya tidak salah maka kembalikan pesan invalid
             if(!$videoId){
                 throw new Exception('Invalid Youtube URL');
             }
 
+            //buat data video
             Videos::create([
                 'title' => $request->title,
                 'link' => $request->link,
@@ -50,6 +62,7 @@ class VideoController extends Controller
         }
     }
 
+    //Fungsi untuk mendapatkan string id video dari link video youtube
     public function getYouTubeVideoId($url) {
         // Match the video ID in a YouTube URL
         $pattern = '/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/';

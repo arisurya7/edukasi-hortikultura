@@ -12,15 +12,24 @@ use Illuminate\Support\Facades\Log;
 
 class PlantPestController extends Controller
 {
+     /**
+     * Fungsi untuk menampilkan data penyakit tanaman berdasarkan spesifik (id),
+     * dan tanamannya*
+     *  
+     */
     public function get($id = null, Request  $request) {
         try {
+            //jika parameter id ada, ambil sepesifik data plant  pest
             if(isset($id)) {
                 $plantPest = PlantPest::findOrFail($id);
             } else {
+                //select semua kolom plant pest
                 $plantPest = PlantPest::select('*');
+                //jika data request plant id nya ada, query berdasarkan plant id
                 if(isset($request->plant_id)){
                     $plantPest = $plantPest->where('plant_id', $request->plant_id);
                 }
+                //get data plant pest
                 $plantPest = $plantPest->get();
             }
             return response()->json(['status' => true, 'message' => 'data retrived', 'data' => $plantPest], 200);
