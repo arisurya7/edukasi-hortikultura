@@ -1,3 +1,6 @@
+## ABOUT
+Application for learning media for understanding and caring for horticultural plants
+
 ## INSTALLING
 
 ### 1. Clone this repo
